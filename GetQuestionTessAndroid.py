@@ -6,10 +6,15 @@
 
 
 from PIL import Image
-from common import screenshot, ocr, methods
+from common import screenshot, ocr, methods, getimgarea
 from threading import Thread
 import time
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
+# 调试得到区域坐标 （功能：屏幕截图并打开，显示鼠标所处屏幕坐标，点击print 横纵坐标，用于方便确定问题及选项区域）
+getimgarea.show() #运行时请注释该方法
 while True:
     # 截图
     screenshot.check_screenshot()
@@ -29,12 +34,12 @@ while True:
     # methods.run_algorithm(2, question, choices)
 
     # 多线程
-    m1 = Thread(methods.run_algorithm(0, question, choices))
-    m2 = Thread(methods.run_algorithm(1, question, choices))
-    m3 = Thread(methods.run_algorithm(2, question, choices))
-    m1.start()
+    # m1 = Thread(methods.run_algorithm(0, question, choices))
+    m2 = Thread(methods.run_algorithm(1, question, choices)) # 推荐方式2
+    # m3 = Thread(methods.run_algorithm(2, question, choices))
+    # m1.start()
     m2.start()
-    m3.start()
+    # m3.start()
 
     # end_time = time.clock()
     # print(end_time - t)

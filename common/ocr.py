@@ -43,9 +43,16 @@ def depoint(img):   #input: gray image
 def ocr_img(image):
 
     # 切割题目和选项位置，左上角坐标和右下角坐标,自行测试分辨率
-    question_im = image.crop((50, 350, 1000, 560)) # 坚果 pro1
-    choices_im = image.crop((75, 535, 990, 1150))
-    # question = img.crop((75, 315, 1167, 789)) # iPhone 7P
+    # 5.7 英寸（锤子m1）
+    # question_im = image.crop((120, 400, 1330, 700))
+    # choices_im = image.crop((170, 760, 1330, 1422))
+    # 坚果 pro1 ( 5.5 英寸)
+    # question_im = image.crop((50, 350, 1000, 560))
+    # choices_im = image.crop((75, 535, 990, 1150))
+    # question = img.crop((75, 315, 1167, 789)) # iPhone 7P( 5.5 英寸 )
+    # 西瓜视频（华为v9 — 5.7 英寸）
+    question_im = image.crop((100, 500, 1312, 805))
+    choices_im = image.crop((100, 820, 1200, 1670))
 
     # 边缘增强滤波,不一定适用
     #question_im = question_im.filter(ImageFilter.EDGE_ENHANCE)
@@ -62,9 +69,9 @@ def ocr_img(image):
 
     # win环境
     # tesseract 路径
-    pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files (x86)\\Tesseract-OCR\\tesseract'
+    pytesseract.pytesseract.tesseract_cmd = 'D:\\software\\Tesseract\\tesseract'
     # 语言包目录和参数
-    tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\tessdata" --psm 6'
+    tessdata_dir_config = '--tessdata-dir "D:\\software\\Tesseract\\tessdata" --psm 6'
 
     # mac 环境 记得自己安装训练文件
     # tesseract 路径
@@ -84,7 +91,7 @@ def ocr_img(image):
 
 
 if __name__ == '__main__':
-    image = Image.open("./screenshot.png")
+    image = Image.open("../screenshot.png")
     question,choices = ocr_img(image)
 
     print("识别结果:")

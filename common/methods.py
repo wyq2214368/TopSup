@@ -6,15 +6,15 @@
 
 import requests
 import webbrowser
-import urllib.parse
+import urlparse # @by wyq  python2x用这个，python3用urllib.parse（向后不兼容╮(╯▽╰)╭）
 
 def open_webbrowser(question):
-    webbrowser.open('https://baidu.com/s?wd=' + urllib.parse.quote(question))
+    webbrowser.open('https://baidu.com/s?wd=' + str(urlparse.urlparse(question)))
 
 def open_webbrowser_count(question,choices):
     print('\n-- 方法2： 题目+选项搜索结果计数法 --\n')
     print('Question: ' + question)
-    if '不是' in question:
+    if u'不是' in question:
         print('**请注意此题为否定题,选计数最少的**')
 
     counts = []
@@ -22,7 +22,7 @@ def open_webbrowser_count(question,choices):
         # 请求
         req = requests.get(url='http://www.baidu.com/s', params={'wd': question + choices[i]})
         content = req.text
-        index = content.find('百度为您找到相关结果约') + 11
+        index = content.find(u'百度为您找到相关结果约') + 11
         content = content[index:]
         index = content.find('个')
         count = content[:index].replace(',', '')
@@ -38,7 +38,7 @@ def count_base(question,choices):
     #print(content)
     counts = []
     print('Question: '+question)
-    if '不是' in question:
+    if u'不是' in question:
         print('**请注意此题为否定题,选计数最少的**')
     for i in range(len(choices)):
         counts.append(content.count(choices[i]))
