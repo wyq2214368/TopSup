@@ -27,8 +27,8 @@ while True:
 
     # 文字识别
     question, choices = ocr.ocr_img(img)
-    print(question)
-    exit()
+    # print(question)
+    # exit()
     # t2 = time.clock()
     # 用不同方法输出结果，取消某个方法在前面加上#
 
