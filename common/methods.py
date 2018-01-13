@@ -10,7 +10,9 @@ import webbrowser
 import urllib.parse
 def open_webbrowser(question):
     # webbrowser.open('https://baidu.com/s?wd=' + str(urlparse.urlparse(question)))
-    webbrowser.open('https://baidu.com/s?wd=' + str(urllib.parse.quote(question)))
+    # webbrowser.open('https://baidu.com/s?wd=' + str(urllib.parse.quote(question)))
+    #bing
+    webbrowser.open('https://cn.bing.com/search?q=' + str(urllib.parse.quote(question)))
 
 def open_webbrowser_count(question,choices):
     print('\n-- 方法2： 题目+选项搜索结果计数法 --\n')
@@ -20,12 +22,19 @@ def open_webbrowser_count(question,choices):
 
     counts = []
     for i in range(len(choices)):
-        # 请求
-        req = requests.get(url='http://www.baidu.com/s', params={'wd': question + choices[i]})
+        # 请求 (百度)
+        # req = requests.get(url='http://www.baidu.com/s', params={'wd': question + choices[i]})
+        # content = req.text
+        # index = content.find(u'百度为您找到相关结果约') + 11
+        # content = content[index:]
+        # index = content.find('个')
+        #Bing
+        req = requests.get(url='https://cn.bing.com/search', params={'q': question + choices[i]})
         content = req.text
-        index = content.find(u'百度为您找到相关结果约') + 11
+        index = content.rfind('<span class="sb_count"')
         content = content[index:]
-        index = content.find('个')
+        content = content[content.find('>')+1:]
+        index = content.find('条结果')
         count = content[:index].replace(',', '')
         counts.append(count)
         #print(choices[i] + " : " + count)
@@ -33,8 +42,10 @@ def open_webbrowser_count(question,choices):
 
 def count_base(question,choices):
     print('\n-- 方法3： 题目搜索结果包含选项词频计数法 --\n')
-    # 请求
-    req = requests.get(url='http://www.baidu.com/s', params={'wd':question})
+    # 请求(百度)
+    # req = requests.get(url='http://www.baidu.com/s', params={'wd':question})
+    #bing
+    req = requests.get(url='https://cn.bing.com/search', params={'q': question})
     content = req.text
     #print(content)
     counts = []

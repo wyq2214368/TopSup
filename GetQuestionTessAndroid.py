@@ -8,7 +8,7 @@
 from PIL import Image
 from common import screenshot, ocr, methods
 # from common import getimgarea
-from threading import Thread
+# from threading import Thread
 import time
 # python3默认utf-8编码，python2x需要用以下三句防止乱码
 # import sys
@@ -34,24 +34,24 @@ while True:
 
     # # 打开浏览器方法搜索问题
     # methods.run_algorithm(0, question, choices)
-    # # 将问题与选项一起搜索方法，并获取搜索到的结果数目
-    # methods.run_algorithm(1, question, choices)
     # # 用选项在问题页面中计数出现词频方法
-    # methods.run_algorithm(2, question, choices)
+    methods.run_algorithm(2, question, choices)
+    # # 将问题与选项一起搜索方法，并获取搜索到的结果数目
+    methods.run_algorithm(1, question, choices)
 
     # 多线程
     # m1 = Thread(methods.run_algorithm(0, question, choices))
-    m2 = Thread(methods.run_algorithm(1, question, choices)) # 推荐方式2
-    m3 = Thread(methods.run_algorithm(2, question, choices))
+    # m2 = Thread(methods.run_algorithm(1, question, choices)) # 推荐方式2
+    # m3 = Thread(methods.run_algorithm(2, question, choices))
     # m1.start()
-    m2.start()
-    m3.start()
+    # m2.start()
+    # m3.start()
 
     # end_time = time.clock()
     # print("t2 - t1:")
     # print(t2 - t1)
     # print("\nendtime - t2:")
-    # print(end_time - t2)
+    # print(end_time - t1)
     go = input('输入回车继续运行,输入 n 回车结束运行: ')
     if go == 'n':
         break

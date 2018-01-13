@@ -51,14 +51,17 @@ def ocr_img(image):
     # choices_im = image.crop((75, 535, 990, 1150))
     # question = img.crop((75, 315, 1167, 789)) # iPhone 7P( 5.5 英寸 )
     # 冲顶大会 (华为v9   5.7英寸)
-    question_im = image.crop((0, 438, 1342, 722))
-    choices_im = image.crop((50, 722, 1246, 1360))
+    # question_im = image.crop((0, 438, 1342, 722))
+    # choices_im = image.crop((50, 722, 1246, 1360))
     # 西瓜视频（华为v9 — 5.7 英寸）
-    # question_im = image.crop((100, 500, 1312, 805))
-    # choices_im = image.crop((100, 820, 1200, 1670))
+    question_im = image.crop((50, 500, 1312, 805))
+    choices_im = image.crop((50, 820, 1200, 1670))
     # 百万赢家 （华为v9  5.7英寸)
     # question_im = image.crop((75, 542, 1300, 882))
     # choices_im = image.crop((62, 868, 1260, 1620))
+    #芝士超人
+    # question_im = image.crop((46, 456, 1358, 756))
+    # choices_im = image.crop((30, 770, 1270, 1528))
 
     # 边缘增强滤波,不一定适用
     #question_im = question_im.filter(ImageFilter.EDGE_ENHANCE)
@@ -90,6 +93,7 @@ def ocr_img(image):
     question = question.replace(".", "")
     question = question.replace(" ", "")
     question = question.replace("_", "一")
+    question = question.replace("硼", "哪")
     question = question.replace("\n", "")[2:]
 
     choice = pytesseract.image_to_string(choices_im, lang='chi_sim', config=tessdata_dir_config)
