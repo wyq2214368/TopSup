@@ -6,10 +6,11 @@
 
 import requests
 import webbrowser
-import urlparse # @by wyq  python2x用这个，python3用urllib.parse（向后不兼容╮(╯▽╰)╭）
-
+# import urlparse # @by wyq  python2x用这个，python3用urllib.parse（向后不兼容╮(╯▽╰)╭）
+import urllib.parse
 def open_webbrowser(question):
-    webbrowser.open('https://baidu.com/s?wd=' + str(urlparse.urlparse(question)))
+    # webbrowser.open('https://baidu.com/s?wd=' + str(urlparse.urlparse(question)))
+    webbrowser.open('https://baidu.com/s?wd=' + str(urllib.parse.quote(question)))
 
 def open_webbrowser_count(question,choices):
     print('\n-- 方法2： 题目+选项搜索结果计数法 --\n')
@@ -62,7 +63,7 @@ def output(choices, counts):
     for i in range(len(choices)):
         if i == index_max:
             # 绿色为计数最高的答案
-            print("\033[1;32m{0:^10} {1:^10}\033[0m".format(choices[i], counts[i]))
+            print("\033[1;32m{0:^10} {1:^10}\033[0m".format(choices[i], counts[i]) + "   y")
         elif i == index_min:
             # 红色为计数最低的答案
             print("\033[0;31m{0:^10}{1:^10}\033[0m".format(choices[i], counts[i]))

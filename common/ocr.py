@@ -53,6 +53,9 @@ def ocr_img(image):
     # 西瓜视频（华为v9 — 5.7 英寸）
     question_im = image.crop((100, 500, 1312, 805))
     choices_im = image.crop((100, 820, 1200, 1670))
+    # 百万赢家 （华为v9  5.7英寸)
+    # question_im = image.crop((75, 542, 1300, 882))
+    # choices_im = image.crop((62, 868, 1260, 1620))
 
     # 边缘增强滤波,不一定适用
     #question_im = question_im.filter(ImageFilter.EDGE_ENHANCE)
@@ -69,9 +72,9 @@ def ocr_img(image):
 
     # win环境
     # tesseract 路径
-    pytesseract.pytesseract.tesseract_cmd = 'D:\\software\\Tesseract\\tesseract'
+    pytesseract.pytesseract.tesseract_cmd = 'D:\\sina\\software\\Tesseract\\tesseract'
     # 语言包目录和参数
-    tessdata_dir_config = '--tessdata-dir "D:\\software\\Tesseract\\tessdata" --psm 6'
+    tessdata_dir_config = '--tessdata-dir "D:\\sina\\software\\Tesseract\\tessdata" --psm 6'
 
     # mac 环境 记得自己安装训练文件
     # tesseract 路径
@@ -81,6 +84,9 @@ def ocr_img(image):
     
     # lang 指定中文简体
     question = pytesseract.image_to_string(question_im, lang='chi_sim', config=tessdata_dir_config)
+    question = question.replace(".", "")
+    question = question.replace(" ", "")
+    question = question.replace("_", "一")
     question = question.replace("\n", "")[2:]
 
     choice = pytesseract.image_to_string(choices_im, lang='chi_sim', config=tessdata_dir_config)
