@@ -23,18 +23,18 @@ def open_webbrowser_count(question,choices):
     counts = []
     for i in range(len(choices)):
         # 请求 (百度)
-        # req = requests.get(url='http://www.baidu.com/s', params={'wd': question + choices[i]})
-        # content = req.text
-        # index = content.find(u'百度为您找到相关结果约') + 11
-        # content = content[index:]
-        # index = content.find('个')
-        #Bing
-        req = requests.get(url='https://cn.bing.com/search', params={'q': question + choices[i]})
+        req = requests.get(url='http://www.baidu.com/s', params={'q2': question + choices[i]})
         content = req.text
-        index = content.rfind('<span class="sb_count"')
+        index = content.find(u'百度为您找到相关结果约') + 11
         content = content[index:]
-        content = content[content.find('>')+1:]
-        index = content.find('条结果')
+        index = content.find('个')
+        #Bing
+        # req = requests.get(url='https://cn.bing.com/search', params={'q': question + choices[i]})
+        # content = req.text
+        # index = content.rfind('<span class="sb_count"')
+        # content = content[index:]
+        # content = content[content.find('>')+1:]
+        # index = content.find('条结果')
         count = content[:index].replace(',', '')
         counts.append(count)
         #print(choices[i] + " : " + count)
@@ -43,9 +43,9 @@ def open_webbrowser_count(question,choices):
 def count_base(question,choices):
     print('\n-- 方法3： 题目搜索结果包含选项词频计数法 --\n')
     # 请求(百度)
-    # req = requests.get(url='http://www.baidu.com/s', params={'wd':question})
+    req = requests.get(url='http://www.baidu.com/s', params={'q1':question, 'rn':50})
     #bing
-    req = requests.get(url='https://cn.bing.com/search', params={'q': question})
+    # req = requests.get(url='https://cn.bing.com/search', params={'q': question})
     content = req.text
     #print(content)
     counts = []
